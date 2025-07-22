@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <div id="resultContainer">
+        <p id="result"></p>
+    </div>
+    <div id="operatorPad">
+        <button>+</button>
+        <button>-</button>
+        <button>∗</button>
+        <button>/</button>
+    </div>
+    <div id="numPad">
+        <button id="num1">1</button>
+        <button id="num2">2</button>
+        <button id="num3">3</button>
+        <button id="num4">4</button>
+        <button id="num5">5</button>
+        <button id="num6">6</button>
+        <button id="num7">7</button>
+        <button id="num8">8</button>
+        <button id="num9">9</button>
+        <button id="equals">=</button>
+        <button id="num0">0</button>
+        <button id="clear">C</button>
+    </div>
+
+    <script>
+        numPad.addEventListener("click", (e) => {
+            switch (e.target.id) {
+                case "num1":
+                    //
+                    break
+                case "num2":
+                    //
+                    break
+                case "num3":
+                    //
+                    break
+                case "num4":
+                    //
+                    break
+                case "num5":
+                    //
+                    break
+                case "num6":
+                    //
+                    break
+                case "num7":
+                    //
+                    break
+                case "num8":
+                    //
+                    break
+                case "num9":
+                    //
+                    break
+                case "num0":
+                    //
+                    break
+                default:
+                    console.log("invalid")
+            }
+        })
+
+        const inputContainer = document.querySelector("#inputDisplay")
+        const resultContainer = document.querySelector("#resultContainer")
+        // const aBtn = inputContainer.querySelector("#aBtn")
+        // const operatorBtn = inputContainer.querySelector("#operator")
+        // const bBtn = inputContainer.querySelector("#bBtn")
+
+        let a
+        let b
+        let operator
+
+        // function add(...num) {
+        //     for (let nums in num) {
+        //         // ...add them together
+        //     }
+        // }
+        function add(a, b) {
+            return parseInt(a) + parseInt(b)
+        }
+        function subtract(a, b) {
+            return parseInt(a) - parseInt(b)
+        }
+        function multiply(a, b) {
+            return parseInt(a) * parseInt(b)
+        }
+        function divide(a, b) {
+            return parseInt(a) / parseInt(b)
+        }
+
+        function operate(a, operator, b) {
+            if (operator === "+") {
+                add(a, b)
+            } else if (operator === "-") {
+                subtract(a, b)
+            } else if (operator === "*") {
+                multiply(a, b)
+            } else if (operator === "/") {
+                div(a, b)
+            } else {
+                console.log("Invalid operator")
+            }
+        }
+
+        console.log(operate(1, "*", 2))
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+* {
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    background-color: #1f1f2f;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+}
+
+#operatorPad {
+    display: flex;
+    justify-content: space-around;
+
+}
+
+#operatorPad > button {
+    height: 80px;
+    flex-basis: 20%;
+    font-size: 32px;
+    border-radius: 20px;
+    border: none;
+    background-color: darkslateblue;
+    color: white;
+}
+
+#numPad {
+    /* background-color: black; */
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 5px;
+    row-gap: 20px;
+    min-width: 120px;
+}
+
+#numPad > button {
+    height: 100px;
+    flex-basis: 30%;
+    font-size: 42px;
+    border-radius: 25px;
+    border: none;
+    background-color: darkslateblue;
+    color: white;
+}
+
+#equals {
+    font-size: 50px;
+    /* width: 10px; */
+}
