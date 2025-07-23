@@ -7,14 +7,14 @@
     <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-    <div id="resultContainer">
+    <div id="display">
         <p id="result"></p>
     </div>
     <div id="operatorPad">
-        <button>+</button>
-        <button>-</button>
-        <button>∗</button>
-        <button>/</button>
+        <button id="add">+</button>
+        <button id="subtract">-</button>
+        <button id="multiply">∗</button>
+        <button id="divide">/</button>
     </div>
     <div id="numPad">
         <button id="num1">1</button>
@@ -32,52 +32,85 @@
     </div>
 
     <script>
+        const display = document.querySelector("#display")
+        const operatorPad = document.querySelector("#operatorPad")
+        const numPad = document.querySelector("#numPad")
+
+        let a
+        let b
+        let operator
+
+        let operatorPress = new customEvent()
+
+        operatorPad.addEventListener("click", () => {
+            switch (e.target.id) {
+                case "add":
+
+                case "subtract":
+
+                case "multiply":
+
+                case "divide":
+
+                default:
+                    console.log("invalid")
+
+            }
+            dispatchEvent
+        })
+
         numPad.addEventListener("click", (e) => {
             switch (e.target.id) {
                 case "num1":
-                    //
+                    a += "1"
+                    display.textContent += "1"
                     break
                 case "num2":
-                    //
+                    a += "2"
+                    display.textContent += "2"
                     break
                 case "num3":
-                    //
+                    a += "3"
+                    display.textContent += "3"
                     break
                 case "num4":
-                    //
+                    a += "4"
+                    display.textContent += "4"
                     break
                 case "num5":
-                    //
+                    a += "5"
+                    display.textContent += "5"
                     break
                 case "num6":
-                    //
+                    a += "6"
+                    display.textContent += "6"
                     break
                 case "num7":
-                    //
+                    a += "7"
+                    display.textContent += "7"
                     break
                 case "num8":
-                    //
+                    a += "8"
+                    display.textContent += "8"
                     break
                 case "num9":
-                    //
+                    a += "9"
+                    display.textContent += "9"
                     break
                 case "num0":
+                    a += "0"
+                    display.textContent += "0"
+                    break
+                case "equals":
+                    display.textContent = operate(a, operate, b)
+                    break
+                case "clear":
                     //
                     break
                 default:
                     console.log("invalid")
             }
         })
-
-        const inputContainer = document.querySelector("#inputDisplay")
-        const resultContainer = document.querySelector("#resultContainer")
-        // const aBtn = inputContainer.querySelector("#aBtn")
-        // const operatorBtn = inputContainer.querySelector("#operator")
-        // const bBtn = inputContainer.querySelector("#bBtn")
-
-        let a
-        let b
-        let operator
 
         // function add(...num) {
         //     for (let nums in num) {
@@ -110,8 +143,6 @@
                 console.log("Invalid operator")
             }
         }
-
-        console.log(operate(1, "*", 2))
     </script>
 
 </body>

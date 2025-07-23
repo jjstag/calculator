@@ -17,6 +17,10 @@ body {
     
 }
 
+#display {
+    color: white;
+}
+
 #operatorPad {
     display: flex;
     justify-content: space-around;
@@ -53,7 +57,8 @@ body {
     color: white;
 }
 
-#equals {
-    font-size: 50px;
+#numPad > #equals, #numPad > #clear {
+    font-size: 35px;
+    color: rgb(176, 176, 223);
     /* width: 10px; */
 }
