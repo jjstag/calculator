@@ -7,13 +7,11 @@
     <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-    <div id="display">
-        <p id="result"></p>
-    </div>
+    <div id="display"></div>
     <div id="operatorPad">
         <button id="add">+</button>
         <button id="subtract">-</button>
-        <button id="multiply">∗</button>
+        <button id="multiply">*</button>
         <button id="divide">/</button>
     </div>
     <div id="numPad">
@@ -36,79 +34,94 @@
         const operatorPad = document.querySelector("#operatorPad")
         const numPad = document.querySelector("#numPad")
 
-        let a
-        let b
+        let a = 0
+        let b = 0
         let operator
+        let operatorPressed = false
+        let toClear = false
+        let result
 
-        let operatorPress = new customEvent()
+        // let operatorPressEvent = new customEvent("operatorPressed");
 
-        operatorPad.addEventListener("click", () => {
+        operatorPad.addEventListener("click", (e) => {
+            let displayText = document.querySelector("#display").textContent
+            if (operatorPressed) {
+                a = operate(a, operator, b)
+                b = 0
+            }
+            if (displayText.includes("+") || displayText.includes("-") || displayText.includes("*") || displayText.includes("/")) return;
             switch (e.target.id) {
                 case "add":
-
+                    display.textContent += "+"
+                    operator = "+"
+                    break
                 case "subtract":
-
+                    display.textContent += "-"
+                    operator = "-"
+                    break
                 case "multiply":
-
+                    display.textContent += "*"
+                    operator = "*"
+                    break
                 case "divide":
-
-                default:
-                    console.log("invalid")
-
+                    display.textContent += "/"
+                    operator = "/"
+                    break
             }
-            dispatchEvent
+            if (e.target.id !== "numPad") {
+                operatorPressed = true
+                toClear = true
+            }
         })
 
+
         numPad.addEventListener("click", (e) => {
-            switch (e.target.id) {
-                case "num1":
-                    a += "1"
-                    display.textContent += "1"
-                    break
-                case "num2":
-                    a += "2"
-                    display.textContent += "2"
-                    break
-                case "num3":
-                    a += "3"
-                    display.textContent += "3"
-                    break
-                case "num4":
-                    a += "4"
-                    display.textContent += "4"
-                    break
-                case "num5":
-                    a += "5"
-                    display.textContent += "5"
-                    break
-                case "num6":
-                    a += "6"
-                    display.textContent += "6"
-                    break
-                case "num7":
-                    a += "7"
-                    display.textContent += "7"
-                    break
-                case "num8":
-                    a += "8"
-                    display.textContent += "8"
-                    break
-                case "num9":
-                    a += "9"
-                    display.textContent += "9"
-                    break
-                case "num0":
-                    a += "0"
-                    display.textContent += "0"
-                    break
-                case "equals":
-                    display.textContent = operate(a, operate, b)
-                    break
-                case "clear":
-                    //
-                    break
-                default:
-                    console.log("invalid")
+            const displayText = display.textContent
+            const idToDigit = {
+                num0: "0",
+                num1: "1",
+                num2: "2",
+                num3: "3",
+                num4: "4",
+                num5: "5",
+                num6: "6",
+                num7: "7",
+                num8: "8",
+                num9: "9",
+                equals: "",
+                clear: "",
+            };
+            const digit = idToDigit[e.target.id]
+
+            if (e.target.id === "equals") {
+                // if (!operator || b === 0) return;
+                result = operate(a, operator, b)
+                display.textContent = result
+                a = result
+                operator = ""
+                b = 0
+                console.log(`a: ${a} operator: ${operator} b: ${b}`)
+            } else if (e.target.id === "clear") {
+                a = 0
+                b = 0
+                operator = ""
+                display.textContent = ""
+                toClear = false
+                operatorPressed = false
+            }
+            if (toClear) {
+                display.textContent = ""
+                toClear = false
+            }
+            if  (!operatorPressed) {
+                a += digit
+                console.log("a: " + a)
+            } else {
+                b += digit
+                console.log("b: " + b)
+            }
+            if (digit) {
+                display.textContent += digit
             }
         })
 
@@ -131,14 +144,16 @@
         }
 
         function operate(a, operator, b) {
-            if (operator === "+") {
-                add(a, b)
+            if (!b) {
+                return a
+            } else if (operator === "+") {
+                return add(a, b)
             } else if (operator === "-") {
-                subtract(a, b)
+                return subtract(a, b)
             } else if (operator === "*") {
-                multiply(a, b)
+                return multiply(a, b)
             } else if (operator === "/") {
-                div(a, b)
+                return divide(a, b)
             } else {
                 console.log("Invalid operator")
             }

@@ -18,12 +18,19 @@ body {
 }
 
 #display {
+    display:flex;
+    justify-content:center;
+    align-items:center;
     color: white;
+    font-size: 60px;
+    flex-grow: 2;
+    overflow-wrap:anywhere;
 }
 
 #operatorPad {
     display: flex;
     justify-content: space-around;
+    margin-bottom: 20px;
 
 }
 
