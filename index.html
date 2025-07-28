@@ -48,7 +48,7 @@
         })
 
         numPad.addEventListener("click", (e) => {
-            const displayText = display.textContent
+            // const displayText = display.textContent
             const idToDigit = {
                 num0: "0",
                 num1: "1",
@@ -60,9 +60,43 @@
                 num7: "7",
                 num8: "8",
                 num9: "9",
-                // equals: "",
-                // clear: "",
+                equals: "equals",
+                clear: "clear",
             };
+            // const id = e.target.id
+            const digit = idToDigit[e.target.id]
+            
+            if (digit === "clear") {
+                let a = 0
+                let b = 0
+                let operator = ""
+                let operatorPressed = false
+                let toClear = false
+                let result = 0
+            } else {
+                if (toClear) {
+                    if (digit === "equals") {
+                        console.log("tried to press equals after pressing an operator")
+                    } else {
+                        display.textContent = ""
+                        b += digit
+                        toClear = false
+                    }
+                } else if (operatorPressed) {
+                    if (digit === "equals") {
+                        result = operate(a, operator, b)
+                        a = result
+                        display.textContent = result
+                        operatorPressed = false
+                    } else {
+                        b += digit
+                        display.textContent += digit
+                    }
+                } else {
+                    a += digit
+                    display.textContent += digit
+                }
+            }
         })
 
         `
@@ -212,7 +246,7 @@
         }
 
         function operate(a, operator, b) {
-            if (!b) {
+            if (!b || !operator) {
                 return a
             } else if (operator === "+") {
                 return add(a, b)
