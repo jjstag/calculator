@@ -74,6 +74,7 @@
         })
 
         numPad.addEventListener("click", (e) => {
+            if (e.target.id === "numPad") return;
             const idToDigit = {
                 num0: "0",
                 num1: "1",
@@ -88,7 +89,6 @@
                 equals: "equals",
                 clear: "clear",
             };
-            // const id = e.target.id
             const digit = idToDigit[e.target.id]
             
             if (digit === "clear") {
@@ -130,6 +130,30 @@
                 }
             }
 
+        })
+
+        document.addEventListener("keydown", (e) => {
+            const validKeys = {
+                1: "num1",
+                2: "num2",
+                3: "num3",
+                4: "num4",
+                5: "num5",
+                6: "num6",
+                7: "num7",
+                8: "num8",
+                9: "num9",
+                0: "num0",
+                "+": "add",
+                "-": "subtract",
+                "*": "multiply",
+                "/": "divide",
+                "=": "equals",
+                Backspace: "clear",
+            }
+            if (validKeys.hasOwnProperty(e.key)) {
+                document.querySelector(`#${validKeys[e.key]}`).click();
+            }
         })
 
 
