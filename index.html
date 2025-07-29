@@ -44,11 +44,36 @@
         let result
         
         operatorPad.addEventListener("click", (e) => {
-
+            if (e.target.id === "operatorPad" || toClear) return;
+            if (operatorPressed) {
+                console.log(`a: ${a} operator: ${operator} b: ${b}`)
+                a = operate(a, operator, b)
+                b = 0
+                console.log(`a: ${a} operator: ${operator} b: ${b}`)
+            }
+            switch (e.target.id) {
+                case "add":
+                    display.textContent += "+"
+                    operator = "+"
+                    break
+                case "subtract":
+                    display.textContent += "-"
+                    operator = "-"
+                    break
+                case "multiply":
+                    display.textContent += "*"
+                    operator = "*"
+                    break
+                case "divide":
+                    display.textContent += "/"
+                    operator = "/"
+                    break
+            }
+            operatorPressed = true
+            toClear = true
         })
 
         numPad.addEventListener("click", (e) => {
-            // const displayText = display.textContent
             const idToDigit = {
                 num0: "0",
                 num1: "1",
@@ -67,25 +92,28 @@
             const digit = idToDigit[e.target.id]
             
             if (digit === "clear") {
-                let a = 0
-                let b = 0
-                let operator = ""
-                let operatorPressed = false
-                let toClear = false
-                let result = 0
+                a = 0
+                b = 0
+                operator = ""
+                operatorPressed = false
+                toClear = false
+                result = 0
+                display.textContent = ""
             } else {
                 if (toClear) {
                     if (digit === "equals") {
                         console.log("tried to press equals after pressing an operator")
                     } else {
-                        display.textContent = ""
+                        display.textContent = "" + digit
                         b += digit
                         toClear = false
                     }
                 } else if (operatorPressed) {
                     if (digit === "equals") {
+                        console.log(`a: ${a} operator: ${operator} b: ${b}`)
                         result = operate(a, operator, b)
                         a = result
+                        b = 0
                         display.textContent = result
                         operatorPressed = false
                     } else {
@@ -93,145 +121,18 @@
                         display.textContent += digit
                     }
                 } else {
-                    a += digit
-                    display.textContent += digit
+                    if (digit === "equals") {
+                        console.log("tried to press equals without an operator")
+                    } else {
+                        a += digit
+                        display.textContent += digit
+                    }
                 }
             }
+
         })
 
-        `
-        CLEAR: reset a, b, operator, operatorPressed, toClear, and all other variables.
-        
-        When a key on the pad is pressed,
 
-        if nothing has been pressed
-            digit: append the digit to the "a" variable
-            operator: do not allow it and log to the console.
-            equals: do not allow it and log to the console OR return 0
-            clear: CLEAR
-        
-        if only numbers have been pressed
-            digit: append the digit to the "a" variable
-            operator: set the operator and set operatorPressed and toClear to true
-            equals: return nothing
-            clear: CLEAR
-
-        if an operator has just been pressed
-            digit: make "a" equal operate(a, operator, b), set the operator as usual, and make b = 0
-            operator: do nothing but log an invalid input
-            equals: do nothing but log an invalid input
-            clear: CLEAR
-
-        if an operator has been pressed
-            digit: make "a" equal operate(a, operator, b), set the operator as usual, and make b = 0
-            operator: repeat This
-            equals: return operate(a, operator, b) and assign it to a as well
-            clear: CLEAR
-        
-        if equals has just been pressed
-            digit: append the digit to the "a" variable
-            operator: set the operator and set operatorPressed and toClear to true
-            equals: do not allow it and log to the console OR return 0
-            clear: CLEAR
-        `
-        
-        
-        
-        
-        
-        
-        
-        
-        // let operatorPressEvent = new customEvent("operatorPressed");
-
-        // operatorPad.addEventListener("click", (e) => {
-        //     let displayText = document.querySelector("#display").textContent
-        //     if (operatorPressed) {
-        //         a = operate(a, operator, b)
-        //         b = 0
-        //     }
-        //     if (displayText.includes("+") || displayText.includes("-") || displayText.includes("*") || displayText.includes("/")) return;
-        //     // bad!
-        //     switch (e.target.id) {
-        //         case "add":
-        //             display.textContent += "+"
-        //             operator = "+"
-        //             break
-        //         case "subtract":
-        //             display.textContent += "-"
-        //             operator = "-"
-        //             break
-        //         case "multiply":
-        //             display.textContent += "*"
-        //             operator = "*"
-        //             break
-        //         case "divide":
-        //             display.textContent += "/"
-        //             operator = "/"
-        //             break
-        //     }
-        //     if (e.target.id !== "numPad") {
-        //         operatorPressed = true
-        //         toClear = true
-        //     }
-        // })
-
-
-        // numPad.addEventListener("click", (e) => {
-        //     const displayText = display.textContent
-        //     const idToDigit = {
-        //         num0: "0",
-        //         num1: "1",
-        //         num2: "2",
-        //         num3: "3",
-        //         num4: "4",
-        //         num5: "5",
-        //         num6: "6",
-        //         num7: "7",
-        //         num8: "8",
-        //         num9: "9",
-        //         equals: "",
-        //         clear: "",
-        //     };
-        //     const digit = idToDigit[e.target.id]
-
-        //     if (e.target.id === "equals") {
-        //         if (!operator) return;
-        //         result = operate(a, operator, b)
-        //         display.textContent = result
-        //         a = result
-        //         operator = ""
-        //         b = 0
-        //         console.log(`a: ${a} operator: ${operator} b: ${b}`)
-        //     } else if (e.target.id === "clear") {
-        //         a = 0
-        //         b = 0
-        //         operator = ""
-        //         display.textContent = ""
-        //         toClear = false
-        //         operatorPressed = false
-        //     }
-        //     if (toClear) {
-        //         display.textContent = ""
-        //         toClear = false
-        //     }
-        //     if  (!operatorPressed) {
-        //         a += digit
-        //         console.log("a: " + a)
-        //     } else {
-        //         b += digit
-        //         console.log("b: " + b)
-        //     }
-        //     if (digit) {
-        //         display.textContent += digit
-        //     }
-        // })
-
-        // function add(...num) {
-        //     for (let nums in num) {
-        //         // ...add them together
-        //     }
-        // }
         function add(a, b) {
             return parseInt(a) + parseInt(b)
         }
@@ -255,7 +156,12 @@
             } else if (operator === "*") {
                 return multiply(a, b)
             } else if (operator === "/") {
-                return divide(a, b)
+                if (b == 0) {
+                    return 0
+                } else {
+                    return divide(a, b)
+                }
+                
             } else {
                 console.log("Invalid operator")
             }
